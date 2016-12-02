@@ -1,11 +1,13 @@
 package com.codepath.android.lollipopexercise.activities;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.codepath.android.lollipopexercise.R;
 import com.codepath.android.lollipopexercise.adapters.ContactsAdapter;
@@ -54,13 +56,31 @@ public class ContactsActivity extends AppCompatActivity {
         return true;
     }
 
+    public void myOnClickListener() {
+
+    }
+
+    public void addContact() {
+        Contact c = Contact.getRandomContact(this);
+        contacts.add(c);
+        mAdapter.notifyItemInserted(contacts.size() - 1);
+        rvContacts.scrollToPosition(mAdapter.getItemCount() - 1);
+        Snackbar.make(rvContacts, R.string.added, Snackbar.LENGTH_LONG)
+                .setAction(R.string.undo, new View.OnClickListener() {
+                    public void onClick(View v) {
+                        contacts.remove(contacts.size() - 1);
+                        mAdapter.notifyItemRemoved(contacts.size());
+                    }
+                }).show();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        addContact();
         return super.onOptionsItemSelected(item);
     }
 }

@@ -38,3 +38,4 @@ Suggested extensions:
 This app leverages the following third-party library:
 
  * [Picasso](http://square.github.io/picasso/) - For image loading
+# android-lollipop-exercise
